@@ -1,0 +1,98 @@
+.recipe-page figure img {
+    width: 100%;
+    height: 300px; /* Единая высота для всех изображений */
+    object-fit: cover; /* Сохраняет пропорцию и обрезает излишки */
+    border-radius: 10px; /* Округленные углы */
+    transition: transform 0.3s ease-in-out;
+}
+
+.recipe-page figure img:hover {
+    transform: scale(1.05); /* Маленький zoom при наведении */
+}
+
+.recipe-page {
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.recipe-page:hover {
+    transform: scale(1.01); /* Ненавязчивый hover эффект */
+}
+
+.recipe-page h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.recipe-info dl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 10px;
+    column-gap: 20px;
+}
+
+.recipe-info dt {
+    font-weight: bold;
+    color: #333;
+}
+
+.recipe-info dd {
+    color: #666;
+}
+
+.ingredients ul {
+    list-style-position: inside;
+    padding-left: 0;
+    font-size: 1.1em;
+    color: #444;
+}
+
+.instructions ol {
+    counter-reset: step;
+    font-size: 1.1em;
+    color: #444;
+}
+
+.instructions ol li {
+    counter-increment: step;
+    margin-bottom: 10px;
+}
+
+.instructions ol li::before {
+    content: counters(step, ".") ": ";
+    font-weight: bold;
+    color: #ff6347; /* Красный оттенок */
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #333;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    header nav {
+        flex-direction: column;
+    }
+
+    header nav a {
+        margin: 5px 0;
+    }
+
+    footer {
+        position: static;
+        margin-top: 20px;
+    }
+}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Готовим дома</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Шапка -->
+    <header class="header">
+      <div class="container">
+        <h1>Готовим дома</h1>
+        <nav class="navbar">
+          <ul>
+            <li><a href="#">Главная</a></li>
+            <li><a href="#categories">Категории</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Основная секция -->
+    <main class="main">
+      <section id="search">
+        <div class="container">
+          <h2>Готовим из того, что есть дома!</h2>
+          <p>
+            Найдите вкусные рецепты из продуктов, которые уже есть в вашем
+            холодильнике.
+          </p>
+          <form action="#" method="GET">
+            <!-- index.html -->
+<label for="search-input">Поиск:</label>
+<input type="text" id="search-input" placeholder="Что ищете?" />
+<ul id="results"></ul>
+
+<script>
+    async function loadData() {
+        return await fetch('/data.json')
+            .then(response => response.json())
+            .catch(error => console.error("Ошибка загрузки:", error));
+    }
+
+    let dataset;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadData()
+            .then(data => {
+                dataset = data;
+                setupSearch();
+            });
+    });
+
+    function setupSearch() {
+        const searchInput = document.getElementById('search-input');
+        const resultsList = document.getElementById('results');
+
+        searchInput.addEventListener('input', e => {
+            const query = e.target.value.trim().toLowerCase();
+            if (!query.length) {
+                resultsList.innerHTML = '';
+                return;
+            }
+
+            const filteredResults = dataset.filter(item =>
+                item.title.toLowerCase().includes(query) ||
+                item.keywords.some(keyword => keyword.includes(query))
+            );
+
+            renderResults(filteredResults, resultsList);
+        });
+    }
+
+    function renderResults(results, container) {
+        container.innerHTML = '';
+        if (results.length === 0) {
+            container.innerHTML = '<li>Нет результатов</li>';
+            return;
+        }
+
+        results.forEach(result => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <a href="${result.url}" target="_blank">${result.title}</a>
+            `;
+            container.appendChild(li);
+        });
+    }
+</script>
+          </form>
+        </div>
+      </section>
+
+      <section id="popular-recipe">
+        <div class="container">
+          <h2>Популярные рецепты:</h2>
+          <ul class="recipe-list">
+            <li>
+              <img src="img/omlet.jpg" alt="Омлет с овощами" />
+              <h3>Омлет с овощами</h3>
+              <span>Время приготовления: 15 мин | Сложность: легко</span>
+            </li>
+            <li>
+              <img src="img/kasha.jpg" alt="Каша овсяная с фруктами" />
+              <h3>Каша овсяная с фруктами</h3>
+              <span>Время приготовления: 10 мин | Сложность: легко</span>
+            </li>
+            <li>
+              <img src="img/pasta.jpg" alt="Паста карбонара" />
+              <h3>Паста карбонара</h3>
+              <span>Время приготовления: 20 мин | Сложность: средне</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Категории рецептов -->
+      <section id="categories">
+        <div class="container">
+          <h2>Категории рецептов:</h2>
+          <div class="category-icons">
+            <div class="icon breakfast-icon">
+              <i class="fas fa-bacon"></i> Завтраки
+            </div>
+            <div class="icon soup-icon">
+              <i class="fas fa-pizza-slice"></i> Супы
+            </div>
+            <div class="icon salad-icon">
+              <i class="fas fa-lemon"></i> Салаты
+            </div>
+            <div class="icon dish-icon">
+              <i class="fas fa-hamburger"></i> Основные блюда
+            </div>
+            <div class="icon dessert-icon">
+              <i class="fas fa-ice-cream"></i> Десерты
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="container">
+        <div class="recipes-container">
+          <div class="recipe-card" data-ingredients="яйца, молоко, соль, масло, перец">
+            <a href="omlet.html">
+              <img src="img/omlet.jpg" alt="Омлет с овощами" />
+              <h3>Омлет с овощами</h3>
+              <div class="details">
+                <span>Время: 15 мин</span>
+                <span>Категория: Завтрак</span>
+                <span>Уровень: Легко</span>
+              </div>
+            </a>
+          </div>
+          <div class="recipe-card" data-ingredients="молоко, овсянка, фрукты, сахар" >
+            <a href="kasha.html">
+            <img src="img/kasha.jpg" alt="Каша овсяная с фруктами" />
+
+            <h3>Каша овсяная с фруктами</h3>
+            <div class="details">
+              <span>Время: 10 мин</span>
+              <span>Категория: Завтрак</span>
+              <span>Уровень: Легко</span>
+            </div>
+            </a>
+          </div>
+          <div class="recipe-card" data-ingredients= "паста, бекон, яйца, сыр">
+            <a href="pasta.html">
+            <img src="img/pasta.jpg" alt="Паста карбонара" />
+
+            <h3>Паста Карбонара</h3>
+            <div class="details">
+              <span>Время: 20 мин</span>
+              <span>Категория: Основное блюдо</span>
+              <span>Уровень: Средне</span>
+            </div>
+            </a>
+          </div>
+          <div class="recipe-card" data-ingredients= "куриное мясо, лук,яйца,панировочные сухари">
+            <a href="kotlet.html">
+            <img src="img/kotlet.jpg" alt="Куриные котлеты" />
+
+            <h3>Куриные котлеты</h3>
+            <div class="details">
+              <span>Время: 30 мин</span>
+              <span>Категория: Обед</span>
+              <span>Уровень: Легко</span>
+            </div>
+            </a>
+          </div>
+          <div class="recipe-card" data-ingredients="свекла, капуста, мясо, картофель">
+            <a href="borsh.html">
+            <img src="img/borsh.jpg" alt="Борщ класический" />
+
+            <h3>Борщ класический</h3>
+            <div class="details">
+              <span>Время: 1,5 часа</span>
+              <span>Категория: Обед</span>
+              <span>Уровень: Средне</span>
+            </div>
+            </a>
+          </div>
+          <div class="recipe-card" data-ingredients="тыква, сливки, лук,бульон">
+            <a href="creamsoup.html">
+            <img src="img/kremsoup.jpg" alt="Крем-суп" />
+
+            <h3>Крем-суп из тыквы</h3>
+            <div class="details">
+              <span>Время: 30 мин</span>
+              <span>Категория: Завтрак</span>
+              <span>Уровень: Легко</span>
+            </div>
+            </a>
+          </div>
+          <div class="recipe-card" data-ingredients="помидоры, огурцы, оливки, фета">
+            <a href="grech.html">
+            <img src="img/salatgre.jpg" alt="Греческий салат" />
+
+            <h3>Греческий салат</h3>
+            <div class="details">
+              <span>Время: 15 мин</span>
+              <span>Категория: Салат</span>
+              <span>Уровень: Легко</span>
+            </div>
+            </a>
+          </div>
+          <div class="recipe-card" data-ingredients="куриное мясо, салат, пармезан, гренки">
+            <a href="cezar.html">
+            <img src="img/cezar.jpg" alt="цезарь салат" />
+
+            <h3>Салат Цезарь с курицей</h3>
+            <div class="details">
+              <span>Время: 25 мин</span>
+              <span>Категория: Салат</span>
+              <span>Уровень: Обед</span>
+            </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+      <div class="container"></div>
+    </footer>
+
+    <script src="scripts.js"></script>
+  </body>
+</html>
